@@ -1,3 +1,4 @@
+import re
 from fleet import Fleet
 from herd import Herd
 from weapon import Weapon
@@ -12,7 +13,7 @@ class Battlefield:
 # ! 2 Create the two teams that will face each other
 # ! 3 Show the current stats of both teams in the battle 
 # ! 4 Decide which Dinosaur you want to use to attack the Robots
-# 5 Decide which attack you want to use
+
 # ! 6 Decide which Robot you want to attack 
 # ! 7 Attack the Robot
 # ! 8 Print the current Robots list displaying their name and health
@@ -27,7 +28,6 @@ class Battlefield:
     def run_game(self):
         self.display_welcome()
         self.battle()
-        self.display_winners(self.battle())
  
     
     # Step #1
@@ -49,29 +49,35 @@ class Battlefield:
         def show_dino_opponent_option(self):
     # Show the dino stats of the current battle 
     # prints the current health and attack power of the dinosaur
+          print("------------------------------")
           print(f'{team_robos.robots[0].name}, Health: {team_robos.robots[0].health}, Attack Power: {team_robos.robots[0].weapon.attack_power}')
           print(f'{team_robos.robots[1].name}, Health: {team_robos.robots[1].health}, Attack Power: {team_robos.robots[1].weapon.attack_power}')
           print(f'{team_robos.robots[2].name}, Health: {team_robos.robots[2].health}, Attack Power: {team_robos.robots[2].weapon.attack_power}')
-          
+          print("------------------------------")
     
         def show_robo_opponent_option(self):
     # Show the robot stats of the current battle
     # prints the current health and of the dinosaur
+          print("------------------------------")
           print(f'{team_dinos.dinos[0].name}, Health: {team_dinos.dinos[0].health}, Attack Power: {team_dinos.dinos[0].attack_power}')
           print(f'{team_dinos.dinos[1].name}, Health: {team_dinos.dinos[1].health}, Attack Power: {team_dinos.dinos[1].attack_power}')
           print(f'{team_dinos.dinos[2].name}, Health: {team_dinos.dinos[2].health}, Attack Power: {team_dinos.dinos[2].attack_power}')
-
+          print("------------------------------")
+          
         def dino_turn(self, dinosaur):
         # Which Dinosaur deals the damage to the current robot
+        
           if team_dinos.dinos[0].health + team_dinos.dinos[1].health + team_dinos.dinos[2].health <= 0:
               return 0
           elif team_dinos.dinos[dinosaur].attack_power < 30: 
               team_dinos.dinos[dinosaur].health = team_dinos.dinos[dinosaur].health - 30
               print(f'{team_dinos.dinos[dinosaur].name} is too weak to attack! Lose health for trying!')
           elif team_robos.robots[dinosaur].health <= 0:
+              team_robos.robots[dinosaur].health = 0
               team_dinos.dinos[dinosaur].attack_power = team_dinos.dinos[dinosaur].attack_power - 30
               print(f"{team_robos.robots[dinosaur].name} is gone to the emergency room. This is overkill!")
           elif team_dinos.dinos[dinosaur].health <= 0:
+              team_dinos.dinos[dinosaur].health
               print(f"{team_dinos.dinos[dinosaur].name} is gone to the emergency room")
           else:
             team_robos.robots[dinosaur].health = team_robos.robots[dinosaur].health - team_dinos.dinos[dinosaur].attack_power
@@ -87,7 +93,8 @@ class Battlefield:
     # the current dinosaur stats will update 
           if team_robos.robots[0].health + team_robos.robots[1].health + team_robos.robots[2].health <= 0:
               return 1
-          elif team_robos.robots[robot].health < 0:
+          elif team_robos.robots[robot].health <= 0:
+              team_robos.robots[robot].health = 0
               team_robos.robots[robot].health = team_robos.robots[robot].health - 20
               print(f"{team_robos.robots[robot].name} is gone to the emergency room")
           else:
@@ -98,17 +105,16 @@ class Battlefield:
         battle_over = False
 
         while battle_over == False:
-            user_input = int(input("Enter 0, 1, 2: "))
+            user_input = int(input("Enter 0, 1, 2 TO ATTACK ROBOS:  "))
             show_dino_opponent_option(self)
-            dino_turn(self, user_input)
-            user_input2 = int(input("Enter 0, 1, 2: "))
+            user_input2 = int(input("Enter 0, 1, 2 TO ATTACK DINOS:  "))
             show_robo_opponent_option(self)
-            robo_turn(self, user_input2)
+            if robo_turn(self, user_input2) == 1:
+                battle_over = True  
+                print(f"----TEAM DINO WINS----")
+            elif dino_turn(self, user_input) == 0:
+                battle_over = True
+                print(f"----TEAM ROBO WINS----")
 
-    def display_winners(self, num):
-# display the battle winner at the end of the battle 
-      if self.battle() == 0:
-       print(f"----TEAM ROBO WINS----")
-      elif self.battle() == 1:
-       print(f"----TEAM DINO WINS----")
+       
     
