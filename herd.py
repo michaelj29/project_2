@@ -1,7 +1,10 @@
+from dinosaur import Dinosaur
 
 class Herd:
     def __init__(self):
-        self.dinosaurs = []
+        self.dinos = []
 
     def create_herd(self):
-        pass
+      self.dinos.append(Dinosaur("Little Foot", 50))
+      self.dinos.append(Dinosaur("T-rex", 100))
+      self.dinos.append(Dinosaur("Geico Lizard", 15))
