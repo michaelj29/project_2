@@ -11,8 +11,7 @@ class Battlefield:
         self.battle()
  
     def display_welcome(self):
-        print("------------------------------")
-        print("Welcome to Robos vs. Dinos !!")
+        print("------Welcome to Robos vs. Dinos!!------")
         print("--------------Team Robos----------------")
         print("                  VS                    ")
         print("--------------Team Dinos----------------")
@@ -24,18 +23,16 @@ class Battlefield:
         team_dinos = self.herd
 
         def show_dino_opponent_option(self):
-          print("------------------------------")
-          print(f'{team_robos.robots[0].name}, Health: {team_robos.robots[0].health}, Attack Power: {team_robos.robots[0].weapon.attack_power}')
-          print(f'{team_robos.robots[1].name}, Health: {team_robos.robots[1].health}, Attack Power: {team_robos.robots[1].weapon.attack_power}')
-          print(f'{team_robos.robots[2].name}, Health: {team_robos.robots[2].health}, Attack Power: {team_robos.robots[2].weapon.attack_power}')
-          print("------------------------------")
+            print("------------------------------")
+            for bots in team_robos.robots:
+                print(f'{bots.name}, Health: {bots.health}, Attack Power: {bots.weapon.attack_power}')
+            print("------------------------------")
     
         def show_robo_opponent_option(self):
-          print("------------------------------")
-          print(f'{team_dinos.dinos[0].name}, Health: {team_dinos.dinos[0].health}, Attack Power: {team_dinos.dinos[0].attack_power}')
-          print(f'{team_dinos.dinos[1].name}, Health: {team_dinos.dinos[1].health}, Attack Power: {team_dinos.dinos[1].attack_power}')
-          print(f'{team_dinos.dinos[2].name}, Health: {team_dinos.dinos[2].health}, Attack Power: {team_dinos.dinos[2].attack_power}')
-          print("------------------------------")
+            print("------------------------------")
+            for dine in team_dinos.dinos:
+                print(f'{dine.name}, Health: {dine.health}, Attack Power: {dine.attack_power}')
+            print("------------------------------")
           
         def dino_turn(self, dinosaur):
           if team_dinos.dinos[0].health + team_dinos.dinos[1].health + team_dinos.dinos[2].health <= 0:
